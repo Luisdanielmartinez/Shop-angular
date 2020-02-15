@@ -1,0 +1,48 @@
+<p>form-example works!</p>
+<!-- <label>
+    Name:
+    <input type="text" [formControl]="name"/>
+</label>
+<p>
+    Value: {{ name.value }}
+</p>
+<p>
+    <button (click)="updateName()">Update Name</button>
+</p> -->
+
+<p>form gruping in this case</p>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <label>
+      Name:
+      <input type="text" formControlName="firtName"/>
+  </label>
+  <label>
+      LastName:
+      <input type="text" formControlName="lastName"/>
+  </label>
+  <div formGroupName="address">
+     <h3>Address</h3>
+     <label>
+         Street:
+         <input type="text" formControlName="street"/>
+     </label>
+     <label>
+         City:
+         <input type="text" formControlName="city"/>
+     </label>
+     <label>
+         State:
+         <input type="text" formControlName="state"/>
+     </label>
+     <label>
+         Zip Code:
+         <input type="text" formControlName="zip"/>
+     </label>
+  </div>
+  <div>
+      <button type="submit" [disabled]="!profileForm.valid">submit</button>
+  </div>
+  <div>
+      <button (click)="updateFormGruping()">update Form</button>
+  </div>
+</form>
