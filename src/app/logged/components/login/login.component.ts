@@ -1,6 +1,7 @@
+import { LoginService } from './../../../ServiceGeneral/LoginService/login.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { User } from '../../../models/user.model';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,8 +9,7 @@ import { User } from '../../../models/user.model';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  user: User;
-  constructor(private formBuilder:FormBuilder) { }
+  constructor(private formBuilder:FormBuilder,private loginService:LoginService) { }
 
   ngOnInit() {
     this.loginForm=this.formBuilder.group({
@@ -18,6 +18,6 @@ export class LoginComponent implements OnInit {
     })
   }
   async SingIn(){
-
+     this.loginService.LoginIn(this.loginForm.value.userEmail,this.loginForm.value.userPassword);
   }
 }

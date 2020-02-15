@@ -27,8 +27,7 @@ export class LoginService {
           Email:email,
           Password:password,
           Id:userID
-        };
-        console.log(userID);       
+        };     
         this.db.collection(collectionUser).doc(user.Id).set(user);;
         
         this.userAuth.auth.currentUser.sendEmailVerification();
@@ -54,10 +53,9 @@ export class LoginService {
       });
   }
 
-  async LoginIn(user:User){
-        this.userAuth.auth.signInWithEmailAndPassword(user.email,user.password)
+  async LoginIn(email:string,password:string){
+        this.userAuth.auth.signInWithEmailAndPassword(email,password)
         .then(()=>{
-          console.log(user);
           this.router.navigate(['/employee']);
         }).catch(err=>{
           const errorCodes = err.code;
