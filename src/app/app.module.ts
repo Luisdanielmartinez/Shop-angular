@@ -1,3 +1,5 @@
+import { DialogModalComponent } from './logged/components/dialog-modal/dialog-modal.component';
+import { MessageService } from './ServiceGeneral/Message/message.service';
 import { MaterialModule } from './material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -18,7 +20,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DialogModalComponent
   ],
   imports: [
     BrowserModule,
@@ -32,10 +35,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AngularFirePerformanceModule,
     ModalModule.forRoot(),
     AngularFirestoreModule
-    
-    
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    MessageService
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [
+    DialogModalComponent
+  ]
 })
 export class AppModule { }

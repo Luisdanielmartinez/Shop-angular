@@ -1,5 +1,8 @@
+
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { collectionUser } from './../../Setting/SettingCollection';
 import { User } from './../../models/user.model';
+import { MessageService } from '../Message/message.service';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -9,8 +12,9 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class LoginService {
-
-  constructor(private router:Router,private userAuth:AngularFireAuth,private db:AngularFirestore) { }
+  answers: string[] = [];
+  bsModalRef: BsModalRef;
+  constructor(private router:Router,private userAuth:AngularFireAuth,private db:AngularFirestore, private messageService: MessageService) { }
 
    async createUser(name:string,email:string,password:string) {
        
@@ -56,6 +60,7 @@ export class LoginService {
   async LoginIn(email:string,password:string){
         this.userAuth.auth.signInWithEmailAndPassword(email,password)
         .then(()=>{
+          this.showMessage();
           this.router.navigate(['/employee']);
         }).catch(err=>{
           const errorCodes = err.code;
@@ -73,6 +78,15 @@ export class LoginService {
               alert('Contraseña invalida.');
               break;
           }
+        });
+  }
+ async showMessage(){
+     await this.messageService.confirm(
+        "Informacion",
+        "Bienvenido al Sistema",
+        ["Ok"])
+        .subscribe((answer) => {
+          this.answers.push(answer);
         });
   }
 }

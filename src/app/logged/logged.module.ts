@@ -14,6 +14,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegiterComponent } from './components/regiter/regiter.component';
 
 
+
 @NgModule({
   declarations: [
     SideNavComponent, 
