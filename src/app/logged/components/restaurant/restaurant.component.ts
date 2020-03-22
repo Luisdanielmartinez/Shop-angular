@@ -7,7 +7,12 @@ interface Food {
   viewValue: string;
 }
 export interface DialogData {
-  item: []
+  name: string,
+  address: string,
+  phone: string,
+  image_url: string,
+  city: string,
+  country: string
 }
 @Component({
   selector: 'app-restaurant',
@@ -64,7 +69,7 @@ export class RestaurantComponent implements OnInit {
   openDialog(item) {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '650px',
-      data: item
+      data: { name: item.name, address: item.address, phone: item.phone, city: item.city, country: item.country, image_url: item.image_url }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -82,7 +87,7 @@ export class DialogOverviewExampleDialog {
 
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: [], public restaurantS: RestaurantService) { }
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, public restaurantS: RestaurantService) { }
 
   onNoClick(): void {
     this.dialogRef.close();
