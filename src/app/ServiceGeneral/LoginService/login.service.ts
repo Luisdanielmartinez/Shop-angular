@@ -14,79 +14,86 @@ import { Router } from '@angular/router';
 export class LoginService {
   answers: string[] = [];
   bsModalRef: BsModalRef;
-  constructor(private router:Router,private userAuth:AngularFireAuth,private db:AngularFirestore, private messageService: MessageService) { }
+  constructor(private router: Router, private userAuth: AngularFireAuth, private db: AngularFirestore, private messageService: MessageService) { }
 
-   async createUser(name:string,email:string,password:string) {
-       
-      await this.userAuth.auth.createUserWithEmailAndPassword(email,password)
-      .then(()=>{
-        this.userAuth.auth.onAuthStateChanged((userData)=>{
+  async createUser(name: string, email: string, password: string) {
+
+    await this.userAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        this.userAuth.auth.onAuthStateChanged((userData) => {
           userData.updateProfile({
-            displayName:name
+            displayName: name
           });
         })
         const userID = this.userAuth.auth.currentUser.uid;
-        let user={
-          Name:name,
-          Email:email,
-          Password:password,
-          Id:userID
-        };     
+        let user = {
+          Name: name,
+          Email: email,
+          Password: password,
+          Id: userID
+        };
         this.db.collection(collectionUser).doc(user.Id).set(user);;
-        
+
         this.userAuth.auth.currentUser.sendEmailVerification();
 
-         alert('Registro exitoso');
-         this.router.navigate(['/login']);
-      }).catch(err=>{
+        alert('Registro exitoso');
+        this.router.navigate(['/login']);
+      }).catch(err => {
         const errorCodes = err.code;
         switch (errorCodes) {
           case 'auth/invalid-email':
-            alert('Correo incorrecto');
+            this.showMessage("info", "Correo incorrecto", ["Ok"]);
             break;
           case 'auth/email-already-in-use':
-            alert('Correo en uso');
+            this.showMessage("info", 'Correo en uso', ["Ok"]);
             break;
           case 'auth/operation-not-allowed':
-            alert('Este correo no existe.');
+            this.showMessage("info", 'Este correo no existe.', ["Ok"]);
             break;
           case 'auth/weak-password':
-           alert('Estamos trabajando por un mejor pais');
+            this.showMessage("info", 'Estamos trabajando con el servicio.', ["Ok"]);
             break;
+          default:
+            this.showMessage("info", 'Tiene que escribir lo que le piden', ["Ok"]);
         }
       });
   }
 
-  async LoginIn(email:string,password:string){
-        this.userAuth.auth.signInWithEmailAndPassword(email,password)
-        .then(()=>{
-          this.showMessage();
-          this.router.navigate(['/employee']);
-        }).catch(err=>{
-          const errorCodes = err.code;
-          switch (errorCodes) {
-            case 'auth/invalid-email':
-              alert('Correo incorrecto');
-              break;
-            case 'auth/email-already-in-use':
-              alert('Correo en uso');
-              break;
-            case 'auth/internal-error.':
-              alert('Estamos trabajando con el servicio.');
-              break;
-            case 'auth/invalid-password':
-              alert('Contraseña invalida.');
-              break;
-          }
-        });
+  async LoginIn(email: string, password: string) {
+    this.userAuth.auth.signInWithEmailAndPassword(email, password)
+      .then(() => {
+
+        this.router.navigate(['/home']);
+      }).catch(err => {
+        const errorCodes = err.code;
+        switch (errorCodes) {
+          case 'auth/invalid-email':
+            this.showMessage("info", "Correo incorrecto", ["Ok"]);
+            break;
+          case 'auth/email-already-in-use':
+            this.showMessage("info", 'Correo en uso', ["Ok"]);
+            break;
+          case 'auth/internal-error.':
+            this.showMessage("info", 'Estamos trabajando con el servicio.', ["Ok"]);
+            break;
+          case 'auth/invalid-password':
+            this.showMessage("info", 'Contraseña invalida.', ["Ok"]);
+            break;
+          case 'auth/operation-not-allowed':
+            this.showMessage("info", 'Este correo no existe.', ["Ok"]);
+            break;
+          default:
+            this.showMessage("info", 'Usuario o contraseña incorrectas.', ["Ok"]);
+        }
+      });
   }
- async showMessage(){
-     await this.messageService.confirm(
-        "Informacion",
-        "Bienvenido al Sistema",
-        ["Ok"])
-        .subscribe((answer) => {
-          this.answers.push(answer);
-        });
+  async showMessage(title, message, question) {
+    await this.messageService.confirm(
+      title,
+      message,
+      question)
+      .subscribe((answer) => {
+        this.answers.push(answer);
+      });
   }
 }

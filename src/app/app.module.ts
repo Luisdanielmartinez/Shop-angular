@@ -1,3 +1,4 @@
+
 import { DialogModalComponent } from './logged/components/dialog-modal/dialog-modal.component';
 import { MessageService } from './ServiceGeneral/Message/message.service';
 import { MaterialModule } from './material.module';
@@ -17,11 +18,11 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFirePerformanceModule } from '@angular/fire/performance';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ModalModule } from 'ngx-bootstrap/modal';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
-    DialogModalComponent
+    DialogModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,14 +35,17 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AngularFireStorageModule,
     AngularFirePerformanceModule,
     ModalModule.forRoot(),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    HttpClientModule
   ],
   providers: [
-    MessageService
+    MessageService,
+    HttpClientModule
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    DialogModalComponent
+    DialogModalComponent,
+
   ]
 })
 export class AppModule { }

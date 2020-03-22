@@ -1,8 +1,8 @@
+import { RestaurantComponent } from './components/restaurant/restaurant.component';
+import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegiterComponent } from './components/regiter/regiter.component';
-import { FormExampleComponent } from './components/form-example/form-example.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { EmployeeComponent } from './components/employee/employee.component';
+
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -10,29 +10,24 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path:'',
-    component:SideNavComponent,
-    children:[
+    path: '',
+    component: SideNavComponent,
+    children: [
       {
-        path:'employee',
-        component:EmployeeComponent
-      },
-
-      {
-        path:'footer',
-        component:FooterComponent
+        path: 'login',
+        component: LoginComponent
       },
       {
-        path:'form',
-        component:FormExampleComponent
+        path: 'regiter',
+        component: RegiterComponent
       },
       {
-        path:'login',
-        component:LoginComponent
+        path: 'home',
+        component: HomeComponent
       },
       {
-        path:'regiter',
-        component:RegiterComponent
+        path: 'restaurant',
+        component: RestaurantComponent
       },
     ]
   }
@@ -41,6 +36,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  declarations:[]
+  declarations: []
 })
 export class LoggedRoutingModule { }

@@ -1,15 +1,16 @@
-
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm ProductSans">
-    <button mat-button color="black" (click)="showAndHide()">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon></button>
-    <h5 class="my-0 mr-md-auto font-weight-normal">Todo Ocoa</h5>
+<div
+    class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm ProductSans">
+    <!-- <button mat-button color="black" (click)="showAndHide()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon></button> -->
+    <h5 class="my-0 mr-md-auto font-weight-normal">
+        ChooseRestaurant</h5>
     <nav class="my-2 my-md-0 mr-md-3">
-        <!-- <a class="p-2 text-dark" href="#">Features</a>
-        <a class="p-2 text-dark" href="#">Enterprise</a>
-        <a class="p-2 text-dark" href="#">Support</a>
-        <a class="p-2 text-dark" href="#">Pricing</a> -->
-      
+        <a class="btn bg-white p-2 text-dark" [routerLink]="['/home']">Home</a>
+        <a class="btn bg-white p-2 text-dark" [routerLink]="['/restaurant']">Restaurantes</a>
+        <a class="btn bg-white p-2 text-dark" href="#">Contactanos</a>
+        <a class="btn bg-white p-2 text-dark" href="#">Acerca</a>
+
     </nav>
     <a class="btn bg-white text-primary ml-4" [routerLink]="['/login']">Login</a>
-    <a class="btn bg-white text-primary"[routerLink]="['/regiter']">Registrarse</a>
+    <a class="btn bg-white text-primary" [routerLink]="['/regiter']">Registrarse</a>
 </div>

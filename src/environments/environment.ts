@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  firebase:{
+  firebase: {
     apiKey: "AIzaSyB6-elxEFPYdxOeXcyTqQoSqyRP6R0441Y",
     authDomain: "final-react-blog.firebaseapp.com",
     databaseURL: "https://final-react-blog.firebaseio.com",
@@ -12,7 +12,8 @@ export const environment = {
     storageBucket: "final-react-blog.appspot.com",
     messagingSenderId: "680106427526",
     appId: "1:680106427526:web:24fef5ca4027aa0f"
-  }
+  },
+  apiUrl: "http://opentable.herokuapp.com/"
 };
 
 /*
